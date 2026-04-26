@@ -17,7 +17,7 @@ Dibangun khusus untuk pengelolaan anggaran institusi (khususnya STIKES), aplikas
 
 Aplikasi ini dikembangkan menggunakan *modern web stack*:
 
-- **Backend**: [Laravel 11](https://laravel.com/) (PHP)
+- **Backend**: [Laravel 12](https://laravel.com/) (PHP)
 - **Frontend**: [React 18](https://react.dev/) dengan [Inertia.js](https://inertiajs.com/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Database**: MySQL / MariaDB
