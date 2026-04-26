@@ -1,58 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Monitoring Daya Serap Anggaran 📊
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi berbasis web untuk memantau, mencatat, dan melaporkan tingkat penyerapan anggaran (Daya Serap) institusi secara sistematis. Sistem ini dirancang untuk memudahkan bagian keuangan dalam melacak alokasi, penerimaan, dan pengeluaran per bulan secara real-time.
 
-## About Laravel
+Dibangun khusus untuk pengelolaan anggaran institusi (khususnya STIKES), aplikasi ini menyediakan ringkasan komprehensif, input data terstruktur per bulan, dan fitur *export* laporan ke Excel dengan rumus otomatis terintegrasi.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Dashboard Interaktif**: Menampilkan ringkasan total alokasi, penerimaan, pengeluaran, persentase daya serap (1 Tahun Penuh), sisa anggaran, dan patokan batas serapan.
+- **Manajemen Tahun Anggaran**: Kelola tahun anggaran secara dinamis (jangka panjang) tanpa batas *hardcode*.
+- **Kategori & Pos Anggaran**: Pengelompokan jenis pengeluaran (Belanja Personel, Belanja Barang, dll) dengan struktur penomoran romawi yang otomatis.
+- **Input Realisasi Bulanan**: Antarmuka mirip *spreadsheet* untuk mengisi penerimaan yayasan dan rincian jenis pengeluaran (Pers, Barang, Har, Jaldis, Umum) setiap bulan secara berurutan.
+- **Laporan & Export Excel Pintar**: Mencetak laporan *Daya Serap* ke dalam format Excel yang rapi, lengkap dengan tanda tangan pengesahan (Ketua, Waket II, Ka Biro), dan **sudah tertanam rumus Excel otomatis** (Penjumlahan, Persentase, Sisa Anggaran, dll) untuk kemudahan manipulasi pasca-unduh.
+- **Data Tersinkronisasi**: Sistem kalkulasi kumulatif pintar yang otomatis mengakumulasi penerimaan dan pengeluaran bulan sebelumnya.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Stack Teknologi
 
-## Learning Laravel
+Aplikasi ini dikembangkan menggunakan *modern web stack*:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend**: [Laravel 11](https://laravel.com/) (PHP)
+- **Frontend**: [React 18](https://react.dev/) dengan [Inertia.js](https://inertiajs.com/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Database**: MySQL / MariaDB
+- **Excel Export**: [Laravel Excel / PhpSpreadsheet](https://laravel-excel.com/)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ⚙️ Prasyarat Instalasi
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Sebelum menginstal, pastikan Anda telah memasang:
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL Server
 
-## Agentic Development
+## 🏃 Cara Instalasi & Menjalankan Secara Lokal
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+1. **Clone repositori ini:**
+   ```bash
+   git clone https://github.com/nandomardi23/daya_serap_stikes.git
+   cd daya_serap_stikes
+   ```
 
-```bash
-composer require laravel/boost --dev
+2. **Install dependensi PHP & Node.js:**
+   ```bash
+   composer install
+   npm install
+   ```
 
-php artisan boost:install
-```
+3. **Konfigurasi Environment:**
+   Duplikat file `.env.example` menjadi `.env` lalu sesuaikan konfigurasi database Anda.
+   ```bash
+   cp .env.example .env
+   ```
+   Generate *application key*:
+   ```bash
+   php artisan key:generate
+   ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+4. **Jalankan Migrasi Database & Seeder:**
+   (Pastikan database yang tertera di `.env` sudah dibuat).
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
 
-## Contributing
+5. **Jalankan Aplikasi:**
+   Buka dua terminal terpisah.
+   
+   Terminal 1 (Jalankan server Laravel):
+   ```bash
+   php artisan serve
+   ```
+   
+   Terminal 2 (Jalankan Vite untuk kompilasi asset React):
+   ```bash
+   npm run dev
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Akses Aplikasi:**
+   Buka browser Anda dan tuju: `http://localhost:8000`
 
-## Code of Conduct
+## 📂 Struktur Menu Utama
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Dashboard**: Tampilan utama yang merangkum keseluruhan data tahun anggaran aktif.
+- **Data Master**:
+  - **Tahun Anggaran**: Tambah/edit masa berlaku anggaran.
+  - **Kategori Anggaran**: Manajemen jenis kategori (misal: I. Belanja Personel).
+  - **Item Anggaran**: Rincian sub-anggaran dari tiap kategori beserta plafon/alokasi nominalnya.
+  - **Penandatangan**: Pengaturan nama & NIK pejabat untuk pengesahan laporan.
+- **Input Daya Serap**: Form bulanan (Januari-Desember) untuk memasukkan realisasi penerimaan dan pengeluaran.
+- **Laporan**: Tabel rekap keseluruhan daya serap dengan tombol export per bulan atau rekap seluruh bulan (1 tahun).
 
-## Security Vulnerabilities
+## 👨‍💻 Kontributor
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Fernando Mardi Nurzaman** - *Full Stack Developer*
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+*Aplikasi ini dikembangkan untuk memfasilitasi kelancaran dan transparansi pelaporan administrasi dan keuangan.*
