@@ -16,11 +16,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           tools: composer:v2
 
       - name: Install PHP Dependencies (Backend)
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader --no-dev
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader --no-dev
+
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,6 +32,18 @@ jobs:
         run: |
           npm ci
           npm run build
+
+      - name: Clean Old Build on Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            rm -rf public/build
+
 
       - name: Sync Files to Hostinger (SCP)
         uses: appleboy/scp-action@v0.1.7
