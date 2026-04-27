@@ -40,7 +40,7 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User berhasil ditambahkan');
     }
 
-    public function update(Request $request, User user)
+    public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required|string|max:255',
