@@ -81,5 +81,10 @@ jobs:
             # Run migrations
             php artisan migrate --force
             
-            # Link storage if not exist
-            php artisan storage:link
+            # Link storage manually (php artisan storage:link uses exec() which is disabled on shared hosting)
+            if [ ! -L public/storage ]; then
+              ln -sf ../storage/app/public public/storage
+              echo "Storage symlink created."
+            else
+              echo "Storage symlink already exists."
+            fi
