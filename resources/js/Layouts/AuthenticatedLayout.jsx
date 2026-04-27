@@ -10,6 +10,9 @@ const NAV_ITEMS = [
     { name: 'Input Data Bulanan', route: 'monthly-data.index', icon: '✏️' },
     { name: 'Laporan', route: 'reports.index', icon: '📄' },
     { name: 'Penandatangan', route: 'signatories.index', icon: '✍️' },
+    { name: 'divider', type: 'divider' },
+    { name: 'User Management', route: 'users.index', icon: '👥', adminOnly: true },
+    { name: 'Role & Permission', route: 'roles.index', icon: '🔐', adminOnly: true },
 ];
 
 export default function AuthenticatedLayout({ header, children }) {
@@ -47,7 +50,17 @@ export default function AuthenticatedLayout({ header, children }) {
 
                     {/* Navigation */}
                     <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-                        {NAV_ITEMS.map((item) => {
+                        {NAV_ITEMS.map((item, index) => {
+                            if (item.type === 'divider') {
+                                // Only show divider if there's an admin section below and user is admin
+                                if (!user.roles.includes('admin')) return null;
+                                return <div key={`divider-${index}`} className="my-4 border-t border-white/10 mx-3" />;
+                            }
+
+                            if (item.adminOnly && !user.roles.includes('admin')) {
+                                return null;
+                            }
+
                             const isActive = route().current(item.route) ||
                                 route().current(item.route.replace('.index', '.*'));
 

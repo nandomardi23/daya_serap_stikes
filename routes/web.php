@@ -8,6 +8,9 @@ use App\Http\Controllers\BudgetItemController;
 use App\Http\Controllers\MonthlyDataController;
 use App\Http\Controllers\SignatoryController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,6 +49,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Signatories
     Route::resource('signatories', SignatoryController::class)->except(['create', 'edit', 'show']);
+
+    // User Management
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('users', UserController::class)->except(['create', 'edit', 'show']);
+        Route::resource('roles', RoleController::class)->except(['create', 'edit', 'show']);
+        Route::resource('permissions', PermissionController::class)->except(['create', 'edit', 'show']);
+    });
 });
 
 require __DIR__.'/auth.php';
