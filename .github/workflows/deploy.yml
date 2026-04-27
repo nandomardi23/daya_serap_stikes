@@ -30,7 +30,7 @@ jobs:
 
       - name: Install NPM Dependencies & Build Assets (Frontend)
         run: |
-          npm ci
+          npm install
           npm run build
 
       - name: Clean Old Build on Server
